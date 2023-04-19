@@ -4,9 +4,8 @@ defmodule Solution do
   def __after_compile__(_, _) do
     # Read the input 
     current_pos = read_coord()
-    {height, _width} = read_coord()
 
-    0..(height - 1)
+    0..4
     |> Stream.flat_map(&read_row_data(&1))
     |> Enum.min_by(&distance(current_pos, &1))
     |> next_move(current_pos)
