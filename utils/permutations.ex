@@ -5,14 +5,14 @@ defmodule Permutations do
     |> next(length(values) - 1)
   end
 
-  def next(permutations, 0) do
-    Enum.map(permutations, fn {permutation, _} -> permutation end)
-  end
-
   def next(permutations, remaining) do
-    permutations
-    |> Enum.flat_map(fn {permutation, remaining} -> expand(permutation, remaining) end)
-    |> next(remaining - 1)
+    if remaining == 0 do
+      Enum.map(permutations, fn {permutation, _} -> permutation end)
+    else
+      permutations
+      |> Enum.flat_map(fn {permutation, remaining} -> expand(permutation, remaining) end)
+      |> next(remaining - 1)
+    end
   end
 
   defp expand(permutation, remaining_values) do
